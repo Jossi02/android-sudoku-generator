@@ -2,7 +2,7 @@ package com.example.sudoku;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
+import java.util.List;
 
 /**
  * 스도쿠 보드 생성기

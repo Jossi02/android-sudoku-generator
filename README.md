@@ -1,29 +1,74 @@
-# Android Sudoku Generator
+# Android Sudoku Board Coursework
 
-이 프로젝트는 행렬 연산을 활용하여 유효한 스도쿠 맵을 생성하고 화면에 표시하는 안드로이드 애플리케이션입니다.
+## Overview
 
-## 📌 주요 특징 (Features)
+This Android Java project was completed for a university mobile-programming course. It uses an instructor-provided `BoardGenerator` to create a completed 9×9 Sudoku board, then builds the board UI dynamically by following the course instructions.
 
-- **동적 스도쿠 보드 생성**: 하드코딩된 보드가 아닌, 실행 시마다 랜덤하게 섞인 새로운 스도쿠 보드를 생성합니다.
-- **행렬 변환 알고리즘**: 9x9 보드를 3x3 크기의 블록 9개로 나눈 뒤, 기본 블록에 시프트 행렬(Shift Matrix)을 곱하여 스도쿠 규칙(가로, 세로, 3x3 박스 내 중복 없음)을 만족하는 전체 보드를 계산합니다.
-- **동적 UI 생성**: XML 레이아웃 대신 `TableLayout`과 `TableRow`를 활용하여 자바 코드에서 9x9 그리드 버튼을 동적으로 생성합니다.
+The repository covers the board-generation and display stage of the coursework. It is not a full playable Sudoku game.
 
-## 🛠 스도쿠 생성 원리
+## Coursework Scope
 
-1. 1부터 9까지의 숫자를 무작위로 섞어 첫 번째 3x3 블록(`blocks[0]`)을 초기화합니다.
-2. 행(Row)을 아래로 1칸씩 밀어내는 **`shiftDown`** 행렬과 열(Col)을 오른쪽으로 1칸씩 밀어내는 **`shiftRight`** 행렬을 정의합니다.
-3. 첫 번째 3x3 블록에 두 행렬을 곱하여, 서로 겹치지 않고 스도쿠 규칙을 만족하는 나머지 8개의 3x3 블록을 생성합니다.
-4. 완성된 9개의 3x3 블록을 9x9 크기의 전체 2차원 배열(`board`)에 병합하여 최종 보드를 완성합니다.
+Instructor-provided coursework material:
 
-## 🚀 실행 방법
+- The original `BoardGenerator` implementation
+- The Sudoku board-generation algorithm
+- The shift-matrix, matrix-multiplication, and 3×3-block construction approach
 
-1. Android Studio를 엽니다.
-2. 이 저장소를 복제(Clone)하거나 다운로드하여 Android Studio에서 엽니다.
-3. Gradle 동기화(Sync)가 완료될 때까지 기다립니다.
-4. 에뮬레이터 또는 실제 안드로이드 기기를 연결하고 `Run` (▶) 버튼을 누릅니다.
+Implemented as guided coursework:
 
-## 📂 프로젝트 구조
+- Android project and UI wiring
+- A `TableLayout` declared in XML
+- Nine `TableRow`s and 81 `Button`s created in Java
+- Display of values read from `BoardGenerator`
+- Independent display of each value with approximately 70% probability
 
-- `BoardGenerator.java`: 스도쿠 맵의 규칙 기반 생성 알고리즘이 구현된 핵심 클래스입니다.
-- `MainActivity.java`: 동적으로 테이블 UI 레이아웃을 생성하고 보드의 일부 숫자만 화면에 표시하는 메인 액티비티입니다.
-- `activity_main.xml`: 앱의 기본 UI 뼈대를 제공하는 레이아웃 파일입니다.
+Later portfolio maintenance:
+
+- Constants, naming, and block-array organization
+- Method extraction, comments, and documentation
+- Build repair and regression tests
+
+## How the Board Is Displayed
+
+`BoardGenerator` supplies a completed 9×9 board. `MainActivity` creates 81 buttons and displays each board value with approximately 70% probability; the remaining buttons have blank text.
+
+The blank cells are display-only and do not accept Sudoku input.
+
+## Validation
+
+The following commands were run successfully on Windows with Java 21.0.10 and Gradle 8.11.1:
+
+- `gradlew.bat test --no-daemon --console=plain`
+- `gradlew.bat assembleDebug --no-daemon --console=plain`
+
+The JVM regression test checks 100 generated boards for 9×9 dimensions, values from 1 through 9, and row, column, and 3×3-block uniqueness. Its purpose is to protect the instructor-provided generator's behavior after later refactoring.
+
+## Limitations
+
+- No number input or cell editing
+- No conflict validation
+- No win condition
+- No memo feature
+- No uniqueness check for the displayed puzzle
+
+## Build
+
+Use Android Studio with Android SDK 35 and JDK 17 or later.
+
+Windows:
+
+```text
+gradlew.bat test
+gradlew.bat assembleDebug
+```
+
+Unix-like systems:
+
+```text
+./gradlew test
+./gradlew assembleDebug
+```
+
+The Unix Gradle wrapper is tracked as executable. These Unix commands were not run during the Windows validation above.
+
+A repository-wide open-source license is not specified because the project contains instructor-provided coursework code.
